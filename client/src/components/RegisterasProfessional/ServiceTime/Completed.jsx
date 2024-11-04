@@ -15,7 +15,7 @@ function Completed() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const response = await fetch(
-            `${process.env.REACT_APP_BACKEND_API}/api/workdonecheck`,
+            `http://localhost:5000/api/workdonecheck`,
             {
                 method: "POST",
                 headers: {

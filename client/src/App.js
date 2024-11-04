@@ -25,6 +25,8 @@ import "./index.css";
 import "path-browserify";
 import "crypto-browserify";
 import "os-browserify/browser";
+
+import UserProfile from './components/Register/UserProfile';
 function App() {
     return (
         <>
@@ -39,6 +41,14 @@ function App() {
                 <Route path="/user/login" element={<LogIn />} />
                 <Route path="/user/signup" element={<Signup />} />
                 <Route path="/user/signup/verify" element={<Otp />} />
+             
+           
+
+<Route path="/user/profile" element={<UserProfile />} />
+
+
+
+
                 {/* Handyman */}
                 <Route path="/handyman/dashboard" element={<Dashboard />} />
                 <Route path="/handyman/profile" element={<HandymanProfile />} />

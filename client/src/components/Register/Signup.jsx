@@ -67,6 +67,7 @@ function Signup() {
         }
     };
 
+    
     return (
         <div>
             {verified ? (
@@ -84,6 +85,7 @@ function Signup() {
                         className="signup_main_back"
                         src={back}
                         onClick={() => navigate("/")}
+                        alt="logo"
                     />
                     <div className="container signup_form">
                         <form onSubmit={handleSubmit}>

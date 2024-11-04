@@ -11,7 +11,7 @@ function ServiceHistory() {
         const intervalId = setInterval(() => {
             const getHandyman = async () => {
                 const response = await fetch(
-                    `${process.env.REACT_APP_BACKEND_API}/api/handyman/gethandyman`,
+                    `http://localhost:5000/api/handyman/gethandyman`,
                     {
                         method: "POST",
                         headers: {

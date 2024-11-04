@@ -49,7 +49,7 @@ function Map() {
     useEffect(() => {
         const fetchUserData = async () => {
             const response = await fetch(
-                `${process.env.REACT_APP_BACKEND_API}/api/user/getuser`,
+                `http://localhost:5000/api/user/getuser`,
                 {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
@@ -73,7 +73,7 @@ function Map() {
         e.preventDefault();
         const enteredOtp = otp.join("");
         const response = await fetch(
-            `${process.env.REACT_APP_BACKEND_API}/api/handyman/jobstartotp`,
+            `http://localhost:5000/api/handyman/jobstartotp`,
             {
                 method: "POST",
                 headers: {

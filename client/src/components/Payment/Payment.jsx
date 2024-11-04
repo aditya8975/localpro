@@ -143,7 +143,7 @@ function Payment() {
                     </div>
                     <StripeCheckout
                         className="flex justify-center w-max"
-                        stripeKey={process.env.REACT_APP_STRIPE_KEY}
+                        stripeKey="sk_test_51QFtG62LPvkfebFuoC62G81JcBBC7aBx3qNi8HnsvTg0jNx2fLrhPHPVv530WfhLMjgoerZXbb8llMIDQZKrCBQr00VrK1xJvu"
                         amount={total * 100}
                         token={handleToken}
                         name="Handyman"

@@ -36,7 +36,7 @@ function ProfessionalRegister() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const response = await fetch(
-            `${process.env.REACT_APP_BACKEND_API}/api/handyman/signup`,
+            `http://localhost:5000/api/handyman/signup`,
             {
                 method: "POST",
                 headers: {

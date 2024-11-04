@@ -7,7 +7,7 @@ function PopUp(props) {
     const { notificationData } = props;
     
     const handleAccept = () => {
-        fetch(`${process.env.REACT_APP_BACKEND_API}/api/acceptnotification`, {
+        fetch(`http://localhost:5000/api/acceptnotification`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -29,7 +29,7 @@ function PopUp(props) {
     };
 
     const handleDecline = () => {
-        fetch(`${process.env.REACT_APP_BACKEND_API}/api/rejectnotification`, {
+        fetch(`http://localhost:5000/api/rejectnotification`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

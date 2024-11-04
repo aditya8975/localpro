@@ -16,27 +16,27 @@ function Footer() {
         <div className="footer_contents">
           <div className="footer_column">
             <div className="footer_column_first_heading_image">
-              <img src="/logo513.png" />
+              <img src="/logo513.png"  alt="logo"/>
             </div>
             <div className="footer_column_first_image_container">
               <div className="footer_column_images">
-                <a href="">
-                  <img src={facebook_icon} alt="" />
+                <a href="#">
+                  <img src={facebook_icon} alt="icon" />
                 </a>
               </div>
               <div className="footer_column_images">
-                <a href="">
-                  <img src={insta_icon} alt="" />
+                <a href="#">
+                  <img src={insta_icon} alt="icon" />
                 </a>
               </div>
               <div className="footer_column_images">
-                <a href="">
-                  <img src={youtube_icon} alt="" />
+                <a href="#">
+                  <img src={youtube_icon} alt="icon" />
                 </a>
               </div>
               <div className="footer_column_images">
-                <a href="">
-                  <img src={twitch_icon} alt="" />
+                <a href="#">
+                  <img src={twitch_icon} alt="icon" />
                 </a>
               </div>
             </div>
@@ -44,35 +44,35 @@ function Footer() {
           <div className="footer_column">
             <div className="footer_column_heading">About Us</div>
             <div className="footer_column_contents">
-              <a href="">Our Story</a>
-              <a href="">Our Mission</a>
-              <a href="">Why Choose us?</a>
+              <a href="#">Our Story</a>
+              <a href="#">Our Mission</a>
+              <a href="#">Why Choose us?</a>
             </div>
           </div>
           <div className="footer_column">
             <div className="footer_column_heading">Quick Links</div>
             <div className="footer_column_contents">
-              <a href="">Our Services</a>
-              <a href="">Register as Professional</a>
-              <a href="">Login/Sign up</a>
-              <a href="">FAQs</a>
+              <a href="#">Our Services</a>
+              <a href="#">Register as Professional</a>
+              <a href="#">Login/Sign up</a>
+              <a href="#">FAQs</a>
             </div>
           </div>
           <div className="footer_column">
             <div className="footer_column_heading">Support</div>
             <div className="footer_column_contents">
-              <a href="">My Account</a>
-              <a href="">Track your booking</a>
-              <a href="">Privacy Policy</a>
-              <a href="">Terms & Conditions</a>
+              <a href="#">My Account</a>
+              <a href="#">Track your booking</a>
+              <a href="#">Privacy Policy</a>
+              <a href="#">Terms & Conditions</a>
             </div>
           </div>
           <div className="footer_column">
             <div className="footer_column_heading">Contact Us</div>
             <div className="footer_column_contents">
-              <a href="">contact@abc.com</a>
-              <a href="">+91 1234567891</a>
-              <a href="">Careers</a>
+              <a href="#">contact@abc.com</a>
+              <a href="#">+91 1234567891</a>
+              <a href="#">Careers</a>
             </div>
           </div>
         </div>

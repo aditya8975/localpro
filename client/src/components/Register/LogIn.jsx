@@ -69,6 +69,7 @@ function LogIn() {
                 className="login_main_back"
                 src={back}
                 onClick={() => navigate("/")}
+                alt="logo"
             />
             <div className="container login_form">
                 <form onSubmit={handleSubmit}>
@@ -91,7 +92,7 @@ function LogIn() {
                     </div>
                     <div className="login_form_button">
                         <button type="submit">Continue</button>
-                        {/* will remove this */}
+                        {/* will remove this
                         <button
                             type="submit"
                             onClick={() => {
@@ -100,7 +101,7 @@ function LogIn() {
                             }}
                         >
                             Test
-                        </button>
+                        </button> */}
                     </div>
                     <div className="login_form_switch">
                         Don't have an account?

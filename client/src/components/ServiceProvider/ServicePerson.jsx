@@ -19,74 +19,77 @@ function ServicePerson({
     const cost = new URLSearchParams(location.search).get("cost");
 
     const createdAtDate = new Date(createdAt);
-
-    // Calculate the number of days since the handyman joined the platform
     const today = new Date();
     const diffTime = today.getTime() - createdAtDate.getTime();
     const diffDays = Math.floor(diffTime / (1000 * 3600 * 24));
-
-    // Set the memberSince variable to the number of days since the handyman joined the platform
     const memberSince = `${diffDays} days`;
-
     const jobsCompleted = usersSelected.length;
 
     const [isLoading, setIsLoading] = useState(false);
     const [isAccepted, setIsAccepted] = useState(false);
     const [showCountdown, setShowCountdown] = useState(false);
 
-    const handleSelect = () => {
-        setIsLoading(true);
-        setShowCountdown(true);
-        fetch(`http://localhost:5000/api/createnotification`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                lat: lat,
-                long: long,
-                user_id: user_id,
-                handyman_id: handyman_id,
-            }),
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                // console.log(data);
-                setIsLoading(true);
-                setIsAccepted(false);
-                const interval = setInterval(() => {
-                    fetch(
-                        `http://localhost:5000/api/getnotification`,
-                        {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/json",
-                            },
-                            body: JSON.stringify({
-                                handyman_id: handyman_id,
-                            }),
-                        }
-                    )
-                        .then((response) => response.json())
-                        .then((data) => {
-                            // console.log("hey" + data[0].status);
-                            if (data[0].status === "accepted") {
-                                // console.log("in" + data[0].status);
-                                setIsAccepted(true);
-                                setIsLoading(false);
-                                clearInterval(interval);
-                            } else if (data[0].status === "rejected") {
-                                setIsAccepted(false);
-                                setIsLoading(false);
-                                clearInterval(interval);
-                            }
-                        });
-                }, 3000);
-            })
-            .catch((error) => {
-                console.error(error);
-                setIsLoading(false);
+    const handleSelect = async () => {
+        try {
+            setIsLoading(true);
+            setShowCountdown(true);
+            const response = await fetch(`http://localhost:5000/api/createnotification`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    lat: lat,
+                    long: long,
+                    user_id: user_id,
+                    handyman_id: handyman_id,
+                }),
             });
+
+            if (!response.ok) {
+                throw new Error(`Failed to create notification. Status: ${response.status}`);
+            }
+
+            const data = await response.json();
+            setIsLoading(true);
+            setIsAccepted(false);
+
+            const interval = setInterval(async () => {
+                try {
+                    const response = await fetch(`http://localhost:5000/api/getnotification`, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            handyman_id: handyman_id,
+                        }),
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`Failed to fetch notification. Status: ${response.status}`);
+                    }
+
+                    const data = await response.json();
+                    if (data?.[0]?.status === "accepted") {
+                        setIsAccepted(true);
+                        setIsLoading(false);
+                        clearInterval(interval);
+                    } else if (data?.[0]?.status === "rejected") {
+                        setIsAccepted(false);
+                        setIsLoading(false);
+                        clearInterval(interval);
+                    }
+                } catch (error) {
+                    console.error("Error fetching notification:", error);
+                    clearInterval(interval);
+                    setIsLoading(false);
+                }
+            }, 3000);
+        } catch (error) {
+            console.error("Error creating notification:", error);
+            setIsLoading(false);
+        }
     };
 
     return (
@@ -108,7 +111,7 @@ function ServicePerson({
             </div>
             <div className="servicePerson_button">
                 {isLoading ? (
-                    <div>Wating for handyman to respond...</div>
+                    <div>Waiting for handyman to respond...</div>
                 ) : isAccepted ? (
                     <Link
                         to={`/user/bookingsummary?lat=${lat}&long=${long}&cost=${cost}&handyman_id=${handyman_id}`}

@@ -2,7 +2,7 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import React, { useEffect, useState } from "react";
 import Map, { Marker } from "react-map-gl";
 
-const TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
+const TOKEN = "pk.eyJ1IjoiamxlZTA3IiwiYSI6ImNtMzFkbGpudjBrNTEyanI2bXZsem80cHYifQ.siV1GgLPY_oOzqN8Yi6vXw";
 // console.log(TOKEN);
 
 function Mapbox(props) {

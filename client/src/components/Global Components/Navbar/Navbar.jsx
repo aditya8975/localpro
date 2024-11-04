@@ -9,14 +9,13 @@ function Navbar() {
     const navigate = useNavigate();
     const [showMobileMenu, setShowMobileMenu] = useState(false);
 
-    // just starting the server once
     useEffect(() => {
         const fetchOnce = async () => {
             const response = await fetch(
                 `http://localhost:5000/api/handyman/getallhandyman`
             );
             try {
-                const data = await response.json();
+                await response.json();
                 console.log("Server Started");
             } catch (error) {
                 console.error("Invalid JSON string:", error.message);
@@ -32,7 +31,6 @@ function Navbar() {
         setShowMobileMenu(!showMobileMenu);
     };
 
-    // function to handle logout button click
     const handleLogout = () => {
         removeUserToken();
         setLoggedIn(false);
@@ -71,6 +69,13 @@ function Navbar() {
                                         Contact Us
                                     </Link>
                                 </li>
+                                {loggedIn && (
+                                    <li>
+                                        <Link to="/user/profile">
+                                            Profile
+                                        </Link>
+                                    </li>
+                                )}
                             </ul>
                         </div>
                         <div className="signup_login_button">
@@ -103,12 +108,19 @@ function Navbar() {
                             </li>
                             <li>
                                 <Link
-                                    to="jlee03046@gmail.com.com"
+                                    to="mailto:jlee03046@gmail.com.com"
                                     target="_blank"
                                 >
                                     Contact Us
                                 </Link>
                             </li>
+                            {loggedIn && (
+                                <li>
+                                    <Link to="/user/profile">
+                                        Profile
+                                    </Link>
+                                </li>
+                            )}
                             <li>
                                 {loggedIn ? (
                                     <Link to="/user/login">

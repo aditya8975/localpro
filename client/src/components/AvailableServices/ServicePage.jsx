@@ -12,7 +12,7 @@ function ServicePage() {
     const user_id = getUserToken();
 
     useEffect(() => {
-        if (user_id == undefined) {
+        if (user_id === undefined) {
             toast.error("You need to login first");
             navigate("/user/login");
         }

@@ -10,8 +10,7 @@ import back from "./images/back.png";
 
 function ProfessionalRegisterSecond(props) {
     const navigate = useNavigate();
-
-    const location = useGeoLocation(); //getting current location of the handyman
+    const location = useGeoLocation(); // Getting current location of the handyman
 
     const [selected, setSelected] = useState("");
     const [aadharNumber, setAadharNumber] = useState("");
@@ -25,7 +24,7 @@ function ProfessionalRegisterSecond(props) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const data = {
+        const requestData = {
             services: selected,
             name: props.name,
             email: props.email,
@@ -33,52 +32,50 @@ function ProfessionalRegisterSecond(props) {
             password: props.password,
             phone: props.number,
             aadharNumber: aadharNumber,
-            aadharFront: aadharFront != "" ? aadharFront : undefined,
-            aadharBack: aadharBack != "" ? aadharBack : undefined,
+            aadharFront: aadharFront !== "" ? aadharFront : undefined,
+            aadharBack: aadharBack !== "" ? aadharBack : undefined,
             address: address,
             lat: location.coordinates.lat,
             long: location.coordinates.lng,
-            profile: profile != "" ? profile : undefined,
+            profile: profile !== "" ? profile : undefined,
         };
-        // console.log(data);
 
-        const response = await fetch(
-            `${process.env.REACT_APP_BACKEND_API}/api/handyman/signup/verify`,
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(data),
-            }
-        );
-        // If the OTP is correct, redirect to the dashboard
         try {
-            const data = await response.json();
-            // console.log(data);
-            if (response.status === 200) {
-                toast.success(data.msg);
-                // console.log(data);
-                setHandymanToken(data.handyman_id); //set up cookie
-                toast.info("Redirecting you...");
-                // console.log(data);
-                setTimeout(() => {
-                    navigate("/handyman/dashboard");
-                }, 3000);
-            } else {
-                console.error(`Failed with status code ${response.status}`);
-                toast.error(data.msg);
+            const response = await fetch(
+                `http://localhost:5000/api/handyman/signup/verify`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(requestData),
+                }
+            );
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                console.error(`Error: ${response.status}`);
+                toast.error(errorData.msg || "An error occurred");
+                return;
             }
+
+            const responseData = await response.json();
+            toast.success(responseData.msg);
+            setHandymanToken(responseData.handyman_id); // Set up cookie
+            toast.info("Redirecting you...");
+            setTimeout(() => {
+                navigate("/handyman/dashboard");
+            }, 3000);
         } catch (error) {
-            console.error("Invalid JSON string:", error.message);
+            console.error("Error:", error.message);
+            toast.error("Failed to submit the form. Please try again.");
         }
     };
 
     const handleResendOtp = async () => {
         try {
-            // Send a request to the backend to resend the OTP
             const response = await fetch(
-                `${process.env.REACT_APP_BACKEND_API}/api/user/signup/resendOtp`,
+                `http://localhost:5000/api/user/signup/resendOtp`,
                 {
                     method: "POST",
                     headers: {
@@ -90,55 +87,20 @@ function ProfessionalRegisterSecond(props) {
                     }),
                 }
             );
-            const data = await response.json();
-            if (response.status === 200) {
-                // If the OTP is sent successfully, show a success message
-                toast.success("in resend otp: " + data.msg);
-            } else {
-                // If there was an error in sending the OTP, show an error message
-                toast.error("in resend otp: " + data.msg);
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                toast.error("Resend OTP failed: " + (errorData.msg || "Error"));
+                return;
             }
+
+            const responseData = await response.json();
+            toast.success("Resend OTP: " + responseData.msg);
         } catch (error) {
             console.error("Error:", error.message);
+            toast.error("Failed to resend OTP. Please try again.");
         }
     };
-
-    // const handleAadhaarFrontImageUpload = (e) => {
-    //     const file = e.target.files[0];
-    //     TransformAadharFrontFileData(file);
-    // };
-
-    // const handleAadhaarBackImageUpload = (e) => {
-    //     const file = e.target.files[0];
-    //     TransformAadharBackFileData(file);
-    // };
-
-    // const TransformAadharFrontFileData = (file) => {
-    //     const reader = new FileReader();
-
-    //     if (file) {
-    //         reader.readAsDataURL(file);
-    //         reader.onloadend = () => {
-    //             setAadharFront(reader.result);
-    //             console.log(aadharFront);
-    //         };
-    //     } else {
-    //         setAadharFront("");
-    //     }
-    // };
-
-    // const TransformAadharBackFileData = (file) => {
-    //     const reader = new FileReader();
-
-    //     if (file) {
-    //         reader.readAsDataURL(file);
-    //         reader.onloadend = () => {
-    //             setAadharBack(reader.result);
-    //         };
-    //     } else {
-    //         setAadharBack("");
-    //     }
-    // };
 
     return (
         <div>
@@ -147,6 +109,7 @@ function ProfessionalRegisterSecond(props) {
                     className="professional_signup_main_back"
                     src={back}
                     onClick={() => navigate("/handyman/register")}
+                    alt="Back"
                 />
                 <div className="container signup_form">
                     <form onSubmit={handleSubmit}>
@@ -196,7 +159,6 @@ function ProfessionalRegisterSecond(props) {
                                 type="file"
                                 multiple={false}
                                 accept="image/*"
-                                // onChange={handleAadhaarFrontImageUpload}
                             />
                         </div>
                         <span>Add Aadhar Back</span>
@@ -205,11 +167,10 @@ function ProfessionalRegisterSecond(props) {
                                 type="file"
                                 multiple={false}
                                 accept="image/*"
-                                // onChange={handleAadhaarBackImageUpload}
                             />
                         </div>
                         <div className="signup_form_button">
-                            <button onClick={handleResendOtp}>
+                            <button type="button" onClick={handleResendOtp}>
                                 Resend OTP
                             </button>
                         </div>

@@ -31,7 +31,7 @@ function ProfessionalLogin() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const response = await fetch(
-            `${process.env.REACT_APP_BACKEND_API}/api/handyman/login`,
+            `http://localhost:5000/api/handyman/login`,
             {
                 method: "POST",
                 headers: {
@@ -92,7 +92,7 @@ function ProfessionalLogin() {
                     </div>
                     <div className="login_form_button">
                         <button type="submit">Continue</button>
-                        {/* will remove this */}
+                        {/* will remove this
                         <button
                             type="submit"
                             onClick={() => {
@@ -101,7 +101,7 @@ function ProfessionalLogin() {
                             }}
                         >
                             Test
-                        </button>
+                        </button> */}
                     </div>
                     <div className="login_form_switch">
                         Don't have an account?

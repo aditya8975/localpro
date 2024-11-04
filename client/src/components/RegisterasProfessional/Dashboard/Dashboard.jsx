@@ -16,7 +16,7 @@ function Dashboard() {
         const intervalId = setInterval(() => {
             const getNotifications = async () => {
                 const response = await fetch(
-                    `${process.env.REACT_APP_BACKEND_API}/api/getnotification`,
+                    `http://localhost:5000/api/getnotification`,
                     {
                         method: "POST",
                         headers: {

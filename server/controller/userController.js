@@ -178,6 +178,7 @@ const resendOtp = async (req, res) => {
     }
 };
 
+
 // route - http://localhost:8080/api/user/getallusers
 const getAllUsers = async (req, res) => {
     try {
