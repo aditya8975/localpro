@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 mongoose.set("strictQuery", false);
 
-const LOCAL_URI = "mongodb+srv://aditya8975:aditya8975@cluster0.egahrct.mongodb.net/localcon?retryWrites=true&w=majority&appName=Cluster0";
+const LOCAL_URI = " ";
 
 const conn = mongoose.connect(LOCAL_URI, {
     useNewUrlParser: true,
