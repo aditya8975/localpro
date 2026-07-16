@@ -8,6 +8,11 @@ A local home-services marketplace (MERN stack) — book vetted professionals for
 
 ---
 
+---
+![Project Home](images/aia2.png)
+---
+
+
 ## Getting Started
 
 ### Prerequisites
